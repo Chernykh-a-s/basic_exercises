@@ -12,7 +12,10 @@ students = [
     {'first_name': 'Маша'},
     {'first_name': 'Петя'},
 ]
-# ???
+name_of_students = [students[name]['first_name'] for name in range(len(students))]
+
+for name in range(len(students)):
+    print(f'{students[name]["first_name"]}: {name_of_students.count(students[name]["first_name"])}')
 
 
 # Задание 2
@@ -26,7 +29,8 @@ students = [
     {'first_name': 'Маша'},
     {'first_name': 'Оля'},
 ]
-# ???
+name_of_students = [students[name]['first_name'] for name in range(len(students))]
+print(name_of_students)
 
 
 # Задание 3

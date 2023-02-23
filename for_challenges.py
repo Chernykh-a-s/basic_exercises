@@ -2,7 +2,8 @@
 # Необходимо вывести имена всех учеников из списка с новой строки
 
 names = ['Оля', 'Петя', 'Вася', 'Маша']
-print(* names, sep='\n')
+for name in names:
+    print(name)
 
 # Задание 2
 # Необходимо вывести имена всех учеников из списка, рядом с именем показать количество букв в нём
@@ -49,8 +50,8 @@ groups = [
 ]
 
 print(f'Всего {len(groups)} группы')
-for group, k in enumerate(groups):
-    print(f'Группа {group+1}: {len(k)} ученика')
+for group, names in enumerate(groups, start=1):
+    print(f'Группа {group}: {len(names)} ученика')
 
 
 # Задание 5
@@ -65,5 +66,5 @@ groups = [
     ['Вася', 'Маша', 'Саша', 'Женя'],
 ]
 
-for group, k in enumerate(groups):
-    print(f'Группа {group+1}: {", ".join(groups[group])}')
+for group, names in enumerate(groups, start=1):
+    print(f'Группа {group}: {", ".join(groups[group-1])}')
