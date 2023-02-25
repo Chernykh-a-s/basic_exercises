@@ -13,10 +13,14 @@ students = [
     {'first_name': 'Петя'},
 ]
 name_of_students = [students[name]['first_name'] for name in range(len(students))]
+uniq_name = []
 
-for name in range(len(students)):
-    print(f'{students[name]["first_name"]}: {name_of_students.count(students[name]["first_name"])}')
+for name in name_of_students:
+    if name not in uniq_name:
+        uniq_name.append(name)
 
+for name in range(len(uniq_name)):
+    print(f'{uniq_name[name]}: {name_of_students.count(students[name]["first_name"])}')
 
 # Задание 2
 # Дан список учеников, нужно вывести самое часто повторящееся имя
@@ -29,10 +33,30 @@ students = [
     {'first_name': 'Маша'},
     {'first_name': 'Оля'},
 ]
-name_of_students = [students[name]['first_name'] for name in range(len(students))]
-print(name_of_students)
+
+def max_name(students):
+    name_of_students = [students[name]['first_name'] for name in range(len(students))]
+
+    names_counter = dict()
+    for name in name_of_students:
+        if name in names_counter:
+            names_counter[name] += 1
+        else:
+            names_counter[name] = 1
+
+    max_names = []
+    max_count = 0
+
+    for name, count_of_name in names_counter.items():
+        if count_of_name > max_count:
+            max_count = count_of_name
+            max_names = [name]
+        elif count_of_name == max_count:
+            max_names.append(name)
+    return f'Самое частое имя среди учеников: {"".join(max_names)}'
 
 
+print(max_name(students))
 # Задание 3
 # Есть список учеников в нескольких классах, нужно вывести самое частое имя в каждом классе.
 # Пример вывода:
@@ -55,8 +79,9 @@ school_students = [
         {'first_name': 'Саша'},
     ],
 ]
-# ???
-
+print(max_name(school_students[0]))
+print(max_name(school_students[1]))
+print(max_name(school_students[2]))
 
 # Задание 4
 # Для каждого класса нужно вывести количество девочек и мальчиков в нём.
@@ -76,7 +101,20 @@ is_male = {
     'Миша': True,
     'Даша': False,
 }
-# ???
+
+male_gender = 0
+female_gender = 0
+
+for class_i in range(len(school)):
+    lst_of_class = [class_x for class_x in school[class_i]['students']]
+    for i in range(len(lst_of_class)):
+        if is_male.get(lst_of_class[i]['first_name']) == 1:
+            male_gender += 1
+        else:
+            female_gender += 1
+    print(f'Класс {school[class_i]["class"]}: девочки {female_gender}, мальчики {male_gender}')
+    male_gender = 0
+    female_gender = 0
 
 
 # Задание 5
