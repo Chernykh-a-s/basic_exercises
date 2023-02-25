@@ -5,12 +5,12 @@ print(word[-1])
 
 # Вывести количество букв "а" в слове
 word = 'Архангельск'
-print(word.count('а'))
+print(word.lower().count('а'))
 
 
 # Вывести количество гласных букв в слове
 word = 'Архангельск'
-vowel_letters = 'а, е, ё, и, о, у, ы, э, ю, я'
+vowel_letters = 'аеёиоуыэюя'
 count_vowel_letters = 0
 for letters in word.lower():
     if letters in vowel_letters:
@@ -24,8 +24,7 @@ print(f'Количество слов в предложении: {word_count}')
 
 # Вывести первую букву каждого слова на отдельной строке
 sentence = 'Мы приехали в гости'
-list_sentence = sentence.split()
-for letter in list_sentence:
+for letter in sentence.split():
     print(letter[0])
 
 # Вывести усреднённую длину слова в предложении

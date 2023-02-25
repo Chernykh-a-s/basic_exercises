@@ -26,11 +26,7 @@ is_male = {
 names = ['Оля', 'Петя', 'Вася', 'Маша']
 
 def gender(male_female):
-    if male_female:
-        return 'мужской'
-    else:
-        return 'женский'
-
+    return 'мужской' if male_female else 'женский'
 
 for name in names:
     print(f'{name}: {gender(is_male[name])}')
@@ -67,4 +63,4 @@ groups = [
 ]
 
 for group, names in enumerate(groups, start=1):
-    print(f'Группа {group}: {", ".join(groups[group-1])}')
+    print(f'Группа {group}: {", ".join(groups[names])}')
