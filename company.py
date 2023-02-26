@@ -31,28 +31,28 @@ departments = [
 ]
 
 for department in departments:
-    print(department["title"])
+    print(department['title'])
 
 for department in departments:
-    for employer in department["employers"]:
-        print(employer["first_name"])
+    for employer in department['employers']:
+        print(employer['first_name'])
 
 for department in departments:
-    for employer in department["employers"]:
+    for employer in department['employers']:
         print(f'{employer["first_name"]} работает в {department["title"]}')
 
 for department in departments:
-    for employer in department["employers"]:
+    for employer in department['employers']:
         if employer.get('salary_rub') > 100000:
             print(f'Заработная плата {employer["first_name"]} превышает 100К')
 
 for department in departments:
-    for employer in department["employers"]:
+    for employer in department['employers']:
         if employer.get('salary_rub') < 80000:
             print(f'Заработная плата {employer["first_name"]} ниже 80К')
 
 for department in departments:
     department_salary = 0
-    for employer in department["employers"]:
+    for employer in department['employers']:
         department_salary += employer.get('salary_rub')
     print(f'Заработная плата {department["title"]} в месяц составляет {department_salary}')
