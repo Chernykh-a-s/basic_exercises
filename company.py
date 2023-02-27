@@ -7,6 +7,14 @@
 4. Вывести имена всех сотрудников компании, которые получают больше 100к.
 5. Вывести позиции, на которых люди получают меньше 80к (можно с повторениями).
 6. Посчитать, сколько денег в месяц уходит на каждый отдел – и вывести вместе с названием отдела
+
+Второй уровень:
+7. Вывести названия отделов с указанием минимальной зарплаты в нём.
+8. Вывести названия отделов с указанием минимальной, средней и максимальной зарплаты в нём.
+9. Вывести среднюю зарплату по всей компании.
+10. Вывести названия должностей, которые получают больше 90к без повторений.
+11. Посчитать среднюю зарплату по каждому отделу среди девушек (их зовут Мишель, Николь, Кристина и Кейтлин).
+12. Вывести без повторений имена людей, чьи фамилии заканчиваются на гласную букву.
 """
 
 departments = [
@@ -30,29 +38,75 @@ departments = [
     },
 ]
 
-for department in departments:
+for department in departments:  # task 1
     print(department['title'])
 
-for department in departments:
+for department in departments:   # task 2
     for employer in department['employers']:
         print(employer['first_name'])
 
-for department in departments:
+for department in departments:   # task 3
     for employer in department['employers']:
         print(f'{employer["first_name"]} работает в {department["title"]}')
 
-for department in departments:
+for department in departments:   # task 4
     for employer in department['employers']:
-        if employer.get('salary_rub') > 100000:
+        if employer['salary_rub'] > 100000:
             print(f'Заработная плата {employer["first_name"]} превышает 100К')
 
-for department in departments:
+for department in departments:   # task 5
     for employer in department['employers']:
-        if employer.get('salary_rub') < 80000:
-            print(f'Заработная плата {employer["first_name"]} ниже 80К')
+        if employer['salary_rub'] < 80000:
+            print(f'Заработная плата {employer["position"]} ниже 80К')
 
-for department in departments:
+for department in departments:   # task 6
     department_salary = 0
     for employer in department['employers']:
-        department_salary += employer.get('salary_rub')
+        department_salary += employer['salary_rub']
     print(f'Заработная плата {department["title"]} в месяц составляет {department_salary}')
+
+for department in departments:   # task 7
+    department_salary = []
+    for employer in department['employers']:
+        department_salary.append(employer['salary_rub'])
+    print(f'Отдел {department["title"]}, минимальная зарплата {sorted(department_salary)[0]}')
+
+for department in departments:  # task 8
+    department_salary = []
+    avg_salary = 0
+    for employer in department['employers']:
+        department_salary.append(employer['salary_rub'])
+    avg_salary = sum(department_salary) / len(department_salary)
+    print(f'Отдел {department["title"]}: минимальная зарплата {sorted(department_salary)[0]}, cредняя зарплата '
+          f'{int(avg_salary)}, максимальная зарплата {sorted(department_salary)[-1]}')
+
+avg_salary = 0  # task 9
+department_salary = []
+for department in departments:
+    for employer in department['employers']:
+        department_salary.append(employer['salary_rub'])
+avg_salary = sum(department_salary) / len(department_salary)
+print(f'Средняя зарплата {avg_salary}')
+
+for department in departments:   # task 10
+    for employer in department['employers']:
+        if employer['salary_rub'] > 90000:
+            print(f'{employer["position"]} получает больше 90К')
+
+for department in departments:   # task 11
+    avg_girls_salary = 0
+    girl_salary = []
+    for employer in department['employers']:
+        if employer['first_name'] == 'Michelle' or employer['first_name'] == 'Nicole' or employer['first_name'] == \
+                'Christina' or employer['first_name'] == 'Caitlin':
+            girl_salary.append(employer['salary_rub'])
+            avg_girls_salary = sum(girl_salary) / len(girl_salary)
+    print(f'Средняя зарплата девушек по {department["title"]} составляет: {int(avg_girls_salary)}')
+
+for department in departments:   # task 12
+    for employer in department['employers']:
+        if employer['last_name'][-1] in 'aeiouy':
+            print(f'Фамилия сотрудника {employer["first_name"]} заканчивается на гласную букву')
+
+
+

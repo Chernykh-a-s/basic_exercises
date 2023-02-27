@@ -13,14 +13,11 @@ students = [
     {'first_name': 'Петя'},
 ]
 name_of_students = [students[name]['first_name'] for name in range(len(students))]
-uniq_name = []
+uniq_name_set = set(name_of_students)
+uniq_name_list = list(uniq_name_set)
 
-for name in name_of_students:
-    if name not in uniq_name:
-        uniq_name.append(name)
-
-for name in range(len(uniq_name)):
-    print(f'{uniq_name[name]}: {name_of_students.count(students[name]["first_name"])}')
+for name in range(len(uniq_name_list)):
+    print(f'{uniq_name_list[name]}: {name_of_students.count(students[name]["first_name"])}')
 
 # Задание 2
 # Дан список учеников, нужно вывести самое часто повторящееся имя
