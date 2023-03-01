@@ -36,7 +36,7 @@ def max_name(students):
 
     names_counter = dict()
     for name in name_of_students:
-        if name in names_counter:
+        if names_counter.get(name):
             names_counter[name] += 1
         else:
             names_counter[name] = 1
@@ -52,8 +52,8 @@ def max_name(students):
             max_names.append(name)
     return f'Самое частое имя среди учеников: {"".join(max_names)}'
 
-
 print(max_name(students))
+
 # Задание 3
 # Есть список учеников в нескольких классах, нужно вывести самое частое имя в каждом классе.
 # Пример вывода:
@@ -76,14 +76,13 @@ school_students = [
         {'first_name': 'Саша'},
     ],
 ]
-print(max_name(school_students[0]))
-print(max_name(school_students[1]))
-print(max_name(school_students[2]))
+for name in range(len(school_students)):
+    print(max_name(school_students[name]))
 
 # Задание 4
 # Для каждого класса нужно вывести количество девочек и мальчиков в нём.
 # Пример вывода:
-# Класс 2a: девочки 2, мальчики 0 
+# Класс 2a: девочки 2, мальчики 0
 # Класс 2б: девочки 0, мальчики 2
 
 school = [
@@ -99,19 +98,15 @@ is_male = {
     'Даша': False,
 }
 
-male_gender = 0
-female_gender = 0
-
-for class_i in range(len(school)):
-    lst_of_class = [class_x for class_x in school[class_i]['students']]
-    for i in range(len(lst_of_class)):
-        if is_male.get(lst_of_class[i]['first_name']) == 1:
+for students in school:
+    male_gender = 0
+    female_gender = 0
+    for name in students['students']:
+        if is_male.get(name['first_name']):
             male_gender += 1
         else:
             female_gender += 1
-    print(f'Класс {school[class_i]["class"]}: девочки {female_gender}, мальчики {male_gender}')
-    male_gender = 0
-    female_gender = 0
+    print(f'Класс {students["class"]}: девочки {female_gender}, мальчики {male_gender}')
 
 
 # Задание 5
@@ -130,5 +125,15 @@ is_male = {
     'Олег': True,
     'Миша': True,
 }
-# ???
 
+for students in school:
+    male_gender = 0
+    female_gender = 0
+    for name in students['students']:
+        if is_male.get(name['first_name']):
+            male_gender += 1
+        else:
+            female_gender += 1
+        boys_predominate = 'Больше всего мальчиков в классе '
+        girls_predominate = 'Больше всего девочек в классе '
+    print(f'{boys_predominate}{students["class"]}') if male_gender > female_gender else print(f'{girls_predominate}{students["class"]}')

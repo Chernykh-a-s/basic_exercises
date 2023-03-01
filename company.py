@@ -69,7 +69,7 @@ for department in departments:   # task 7
     department_salary = []
     for employer in department['employers']:
         department_salary.append(employer['salary_rub'])
-    print(f'Отдел {department["title"]} - минимальная зарплата {sorted(department_salary)[0]}')
+    print(f'Отдел {department["title"]} - минимальная зарплата {min(department_salary)}')
 
 for department in departments:  # task 8
     department_salary = []
@@ -77,34 +77,34 @@ for department in departments:  # task 8
     for employer in department['employers']:
         department_salary.append(employer['salary_rub'])
     avg_salary = sum(department_salary) / len(department_salary)
-    min_salary = sorted(department_salary)[0]
-    max_salary = sorted(department_salary)[-1]
+    min_salary = min(department_salary)
+    max_salary = max(department_salary)
     print(f'Отдел {department["title"]}: минимальная зарплата {min_salary}')
     print(f'Отдел {department["title"]}: максимальная зарплата {max_salary}')
     print(f'Отдел {department["title"]}: cредняя зарплата {int(avg_salary)}')
 
 avg_salary = 0  # task 9
-department_salary = []
+salary = []
 for department in departments:
     for employer in department['employers']:
-        department_salary.append(employer['salary_rub'])
-avg_salary = sum(department_salary) / len(department_salary)
+        salary.append(employer['salary_rub'])
+avg_salary = sum(salary) / len(salary)
 print(f'Средняя зарплата компании {avg_salary}')
 
-salary_over_90 = [] # task 10
+salary_cap = [] # task 10
 for department in departments:
     for employer in department['employers']:
         if employer['salary_rub'] > 90000:
-            salary_over_90.append(employer["position"])
-print(f'{", ".join(salary_over_90)} получают больше 90К')
+            salary_cap.append(employer["position"])
+print(f'{", ".join(salary_cap)} получают больше 90К')
 
-for department in departments:   # task 11
-    girls = ['Michelle', 'Nicole', 'Christina', 'Caitlin', ]
+girls = ['Michelle', 'Nicole', 'Christina', 'Caitlin', ]  # task 11
+for department in departments:
     girl_salary = []
     for employer in department['employers']:
         if employer['first_name'] in girls:
             girl_salary.append(employer['salary_rub'])
-            avg_girls_salary = sum(girl_salary) / len(girl_salary)
+    avg_girls_salary = sum(girl_salary) / len(girl_salary)
     print(f'Средняя зарплата девушек по {department["title"]} составляет: {int(avg_girls_salary)}')
 
 end_vowel_letter_in_last_name = []
@@ -112,7 +112,8 @@ for department in departments:   # task 12
     for employer in department['employers']:
         if employer['last_name'][-1] in 'aeiouy':
             end_vowel_letter_in_last_name.append(employer["first_name"])
-print(f'Фамилии сотрудников {", ".join(end_vowel_letter_in_last_name)} оканчиваются на гласную букву')
+            end_vowel_letter_in_last_name_set = set(end_vowel_letter_in_last_name)
+print(f'Фамилии сотрудников {", ".join(end_vowel_letter_in_last_name_set)} оканчиваются на гласную букву')
 
 
 
