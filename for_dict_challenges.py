@@ -12,12 +12,12 @@ students = [
     {'first_name': 'Маша'},
     {'first_name': 'Петя'},
 ]
-name_of_students = [students[name]['first_name'] for name in range(len(students))]
-uniq_name_set = set(name_of_students)
-uniq_name_list = list(uniq_name_set)
 
-for name in range(len(uniq_name_list)):
-    print(f'{uniq_name_list[name]}: {name_of_students.count(students[name]["first_name"])}')
+name_of_students = [student['first_name'] for student in students]
+uniq_name = list(set(name_of_students))
+
+for name in uniq_name:
+    print(f'{name}: {name_of_students.count(name)}')
 
 # Задание 2
 # Дан список учеников, нужно вывести самое часто повторящееся имя
@@ -76,8 +76,8 @@ school_students = [
         {'first_name': 'Саша'},
     ],
 ]
-for name in range(len(school_students)):
-    print(max_name(school_students[name]))
+for name in school_students:
+    print(max_name(name))
 
 # Задание 4
 # Для каждого класса нужно вывести количество девочек и мальчиков в нём.
@@ -118,6 +118,7 @@ for students in school:
 school = [
     {'class': '2a', 'students': [{'first_name': 'Маша'}, {'first_name': 'Оля'}]},
     {'class': '3c', 'students': [{'first_name': 'Олег'}, {'first_name': 'Миша'}]},
+    {'class': '4c', 'students': [{'first_name': 'Олег'}, {'first_name': 'Миша'}, {'first_name': 'Миша'}]},
 ]
 is_male = {
     'Маша': False,
