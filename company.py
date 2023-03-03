@@ -49,14 +49,16 @@ for department in departments:   # task 3
     for employer in department['employers']:
         print(f'{employer["first_name"]} работает в {department["title"]}')
 
-for department in departments:   # task 4
+task_salary = 100000  # task 4
+for department in departments:
     for employer in department['employers']:
-        if employer['salary_rub'] > 100000:
+        if employer['salary_rub'] > task_salary:
             print(f'Заработная плата {employer["first_name"]} превышает 100К')
 
-for department in departments:   # task 5
+task_salary = 80000  # task 5
+for department in departments:
     for employer in department['employers']:
-        if employer['salary_rub'] < 80000:
+        if employer['salary_rub'] < task_salary:
             print(f'Заработная плата {employer["position"]} ниже 80К')
 
 for department in departments:   # task 6
@@ -83,22 +85,22 @@ for department in departments:  # task 8
     print(f'Отдел {department["title"]}: максимальная зарплата {max_salary}')
     print(f'Отдел {department["title"]}: cредняя зарплата {int(avg_salary)}')
 
-avg_salary = 0  # task 9
-salary = []
+salary = []  # task 9
 for department in departments:
     for employer in department['employers']:
         salary.append(employer['salary_rub'])
 avg_salary = sum(salary) / len(salary)
 print(f'Средняя зарплата компании {avg_salary}')
 
-salary_cap = [] # task 10
+task_salary = 90000  # task 10
+salary_cap = []
 for department in departments:
     for employer in department['employers']:
-        if employer['salary_rub'] > 90000:
+        if employer['salary_rub'] > task_salary:
             salary_cap.append(employer["position"])
 print(f'{", ".join(salary_cap)} получают больше 90К')
 
-girls = ['Michelle', 'Nicole', 'Christina', 'Caitlin', ]  # task 11
+girls = ['Michelle', 'Nicole', 'Christina', 'Caitlin']  # task 11
 for department in departments:
     girl_salary = []
     for employer in department['employers']:
@@ -107,8 +109,8 @@ for department in departments:
     avg_girls_salary = sum(girl_salary) / len(girl_salary)
     print(f'Средняя зарплата девушек по {department["title"]} составляет: {int(avg_girls_salary)}')
 
-end_vowel_letter_in_last_name = []
-for department in departments:   # task 12
+end_vowel_letter_in_last_name = []   # task 12
+for department in departments:
     for employer in department['employers']:
         if employer['last_name'][-1] in 'aeiouy':
             end_vowel_letter_in_last_name.append(employer["first_name"])
