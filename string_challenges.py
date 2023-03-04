@@ -24,8 +24,8 @@ print(f'Количество слов в предложении: {word_count}')
 
 # Вывести первую букву каждого слова на отдельной строке
 sentence = 'Мы приехали в гости'
-for letter in sentence.split():
-    print(letter[0])
+for word in sentence.split():
+    print(word[0])
 
 # Вывести усреднённую длину слова в предложении
 sentence = 'Мы приехали в гости'
@@ -34,62 +34,3 @@ for word in sentence.split():
     len_word += len(word)
 avg_len_word = len_word / len(sentence.split())
 print(avg_len_word)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
