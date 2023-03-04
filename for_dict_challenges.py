@@ -32,7 +32,7 @@ students = [
 ]
 
 def max_name(students):
-    name_of_students = [students[name]['first_name'] for name in range(len(students))]
+    name_of_students = [student['first_name'] for student in students]
 
     names_counter = dict()
     for name in name_of_students:
@@ -118,7 +118,6 @@ for students in school:
 school = [
     {'class': '2a', 'students': [{'first_name': 'Маша'}, {'first_name': 'Оля'}]},
     {'class': '3c', 'students': [{'first_name': 'Олег'}, {'first_name': 'Миша'}]},
-    {'class': '4c', 'students': [{'first_name': 'Олег'}, {'first_name': 'Миша'}, {'first_name': 'Миша'}]},
 ]
 is_male = {
     'Маша': False,
@@ -126,6 +125,11 @@ is_male = {
     'Олег': True,
     'Миша': True,
 }
+
+max_male_class = ''
+max_female_class = ''
+max_male_gender = 0
+max_female_gender = 0
 
 for students in school:
     male_gender = 0
@@ -135,6 +139,15 @@ for students in school:
             male_gender += 1
         else:
             female_gender += 1
-        boys_predominate = 'Больше всего мальчиков в классе '
-        girls_predominate = 'Больше всего девочек в классе '
-    print(f'{boys_predominate}{students["class"]}') if male_gender > female_gender else print(f'{girls_predominate}{students["class"]}')
+        if male_gender > female_gender:
+            max_male_gender = male_gender
+            max_male_class = str(students["class"])
+            if male_gender > max_male_gender:
+                max_male_gende = male_gender
+        else:
+            max_female_gender = female_gender
+            max_female_class = str(students["class"])
+            if female_gender > max_female_gender:
+                max_female_gender = female_gender
+print(f'Больше всего мальчиков в классе {max_male_class}')
+print(f'Больше всего девочек в классе {max_female_class}')

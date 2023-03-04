@@ -53,13 +53,13 @@ task_salary = 100000  # task 4
 for department in departments:
     for employer in department['employers']:
         if employer['salary_rub'] > task_salary:
-            print(f'Заработная плата {employer["first_name"]} превышает 100К')
+            print(f'Заработная плата {employer["first_name"]} превышает {task_salary}К')
 
 task_salary = 80000  # task 5
 for department in departments:
     for employer in department['employers']:
         if employer['salary_rub'] < task_salary:
-            print(f'Заработная плата {employer["position"]} ниже 80К')
+            print(f'Заработная плата {employer["position"]} ниже {task_salary}К')
 
 for department in departments:   # task 6
     department_salary = 0
@@ -98,7 +98,7 @@ for department in departments:
     for employer in department['employers']:
         if employer['salary_rub'] > task_salary:
             salary_cap.append(employer["position"])
-print(f'{", ".join(salary_cap)} получают больше 90К')
+print(f'{", ".join(salary_cap)} получают больше {task_salary}К')
 
 girls = ['Michelle', 'Nicole', 'Christina', 'Caitlin']  # task 11
 for department in departments:
@@ -116,6 +116,3 @@ for department in departments:
             end_vowel_letter_in_last_name.append(employer["first_name"])
             end_vowel_letter_in_last_name_set = set(end_vowel_letter_in_last_name)
 print(f'Фамилии сотрудников {", ".join(end_vowel_letter_in_last_name_set)} оканчиваются на гласную букву')
-
-
-
