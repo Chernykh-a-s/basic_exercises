@@ -126,28 +126,28 @@ is_male = {
     'Миша': True,
 }
 
-max_male_class = ''
-max_female_class = ''
+max_male_class = None
+max_female_class = None
 max_male_gender = 0
 max_female_gender = 0
 
-for students in school:
+for class_num in school:
     male_gender = 0
     female_gender = 0
-    for name in students['students']:
+    for name in class_num['students']:
         if is_male.get(name['first_name']):
             male_gender += 1
         else:
             female_gender += 1
-        if male_gender > female_gender:
-            max_male_gender = male_gender
-            max_male_class = str(students["class"])
-            if male_gender > max_male_gender:
-                max_male_gende = male_gender
-        else:
+    if male_gender > female_gender:
+        max_male_gender = male_gender
+        max_male_class = class_num["class"]
+        if male_gender > max_male_gender:
+            max_male_gende = male_gender
+    else:
+        max_female_gender = female_gender
+        max_female_class = class_num["class"]
+        if female_gender > max_female_gender:
             max_female_gender = female_gender
-            max_female_class = str(students["class"])
-            if female_gender > max_female_gender:
-                max_female_gender = female_gender
 print(f'Больше всего мальчиков в классе {max_male_class}')
 print(f'Больше всего девочек в классе {max_female_class}')

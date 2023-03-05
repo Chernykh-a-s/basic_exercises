@@ -53,13 +53,13 @@ task_salary = 100000  # task 4
 for department in departments:
     for employer in department['employers']:
         if employer['salary_rub'] > task_salary:
-            print(f'Заработная плата {employer["first_name"]} превышает {task_salary}К')
+            print(f'Заработная плата {employer["first_name"]} превышает {task_salary}')
 
 task_salary = 80000  # task 5
 for department in departments:
     for employer in department['employers']:
         if employer['salary_rub'] < task_salary:
-            print(f'Заработная плата {employer["position"]} ниже {task_salary}К')
+            print(f'Заработная плата {employer["position"]} ниже {task_salary}')
 
 for department in departments:   # task 6
     department_salary = 0
@@ -98,7 +98,7 @@ for department in departments:
     for employer in department['employers']:
         if employer['salary_rub'] > task_salary:
             salary_cap.append(employer["position"])
-print(f'{", ".join(salary_cap)} получают больше {task_salary}К')
+print(f'{", ".join(salary_cap)} получают больше {task_salary}')
 
 girls = ['Michelle', 'Nicole', 'Christina', 'Caitlin']  # task 11
 for department in departments:
