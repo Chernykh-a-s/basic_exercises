@@ -45,20 +45,51 @@ taxes = [
 
 # task 13. Вывести список отделов с суммарным налогом на сотрудников этого отдела.
 
-tax_departments = {}
-for department in departments:
-    department_salary = []
-    for employer in department['employers']:
-        department_salary.append(employer['salary_rub'])
-    if department["title"] == 'IT department':
-        tax_sum = sum(department_salary) * (taxes[0]["value_percents"] + taxes[1]["value_percents"]) / 100
-        tax_departments["department"] = department["title"]
-        tax_departments["tax"] = tax_sum
-    else:
-        tax_sum = sum(department_salary) * (taxes[0]["value_percents"] / 100)
-        tax_departments["department"] = department["title"]
-        tax_departments["tax"] = tax_sum
-    print(f'По {tax_departments["department"]} суммарный налог на сотрудников равен {tax_departments["tax"]}')
+def departments_salary(departments):
+    departments_salary = {}
+    for department in departments:
+        salary_lst = []
+        for employer in department["employers"]:
+            salary_lst.append(employer["salary_rub"])
+        departments_salary[department["title"]] = sum(salary_lst)
+    return departments_salary
+
+
+def departments_tax_rate(taxes, departments):
+    taxes_for_department = {}
+
+    for tax in taxes:
+        taxes_for_department[tax["department"]] = tax["value_percents"] / 100
+
+    taxes_for_department["All"] = taxes_for_department.pop(None)
+
+    department_taxes = {}
+    departments_lst = [department["title"] for department in departments]
+
+    for department in departments_lst:
+        dep_tax = []
+        if True:
+            dep_tax.append(taxes_for_department.get(department))
+            dep_tax.append(taxes_for_department.get("All"))
+            if None in dep_tax:
+                dep_tax.remove(None)
+            department_taxes[department] = sum(dep_tax)
+        else:
+            dep_tax.append(tax_dict.get("All"))
+            department_taxes[department] = sum(dep_tax)
+    return department_taxes
+
+
+def department_tax_burden(departments_salary, department_taxes):
+    for department in departments_salary:
+        tax_burden = departments_salary.get(department) * department_taxes.get(department)
+        print(f'По {department} суммарный налог на сотрудников равен {tax_burden}')
+
+
+if __name__ == "__main__":
+    dep_sal = departments_salary(departments)
+    dep_tax = departments_tax_rate(taxes, departments)
+    print(department_tax_burden(dep_sal, dep_tax))
 
 # task 14. Вывести список всех сотрудников с указанием зарплаты "на руки" и зарплаты с учётом налогов.
 
