@@ -48,17 +48,17 @@ taxes = [
 def generating_departments_salaries(departments):
     departments_salary = {}
     for department in departments:
-        salary = []
+        department_salaries = []
         for employer in department["employers"]:
-            salary.append(employer["salary_rub"])
-        departments_salary[department["title"]] = sum(salary)
+            department_salaries.append(employer["salary_rub"])
+        departments_salary[department["title"]] = sum(department_salaries)
     return departments_salary
 
 
 def get_departments_tax_rate(taxes, departments):
     taxes_for_department = {}
     for tax in taxes:
-        if tax["department"] != None:
+        if tax["department"] is not None:
             taxes_for_department[tax["department"]] = tax["value_percents"] / 100
         else:
             tax_for_all_departments = tax["value_percents"] / 100
@@ -94,7 +94,7 @@ def calculate_employers_salaries(departments):
     tax_of_departments = get_departments_tax_rate(taxes, departments)
     for department in departments:
         for employer in department['employers']:
-            employer_tax = employer['salary_rub'] * (tax_of_departments.get(department["title"])) / 100
+            employer_tax = employer['salary_rub'] * (tax_of_departments[department["title"]]) / 100
             salary_after_tax = employer['salary_rub'] - employer_tax
             print(f'{employer["first_name"]} {employer["last_name"]}: зарплата после вычета налогов'
                   f' {int(salary_after_tax)}')
@@ -102,15 +102,54 @@ def calculate_employers_salaries(departments):
                   f' {employer["salary_rub"]}')
 
 
+# task 16. Вывести список отделов, отсортированный по месячной налоговой нагрузке.
+def output_departments_name_by_total_taxes(departments_salary, department_taxes):
+    departments_total_taxes = {}
+    for department in departments_salary:
+        tax_burden = departments_salary.get(department) * department_taxes.get(department)
+        departments_total_taxes[department] = tax_burden
+
+    sorted_departments_total_taxes = dict(sorted(departments_total_taxes.items(), key=lambda item: item[1],
+                                                 reverse=True))
+    departments_names_by_total_taxes = [department_name for department_name in sorted_departments_total_taxes]
+    for department_name in departments_names_by_total_taxes:
+        print(department_name)
+
+
+# task 17. Вывести всех сотрудников, за которых компания платит больше 100к налогов в год.
+def output_employers_over_option_tax(departments, option_sum_of_tax):
+    tax_of_departments = get_departments_tax_rate(taxes, departments)
+    for department in departments:
+        for employer in department['employers']:
+            employer_year_tax = employer['salary_rub'] * 12 * tax_of_departments[department["title"]]
+            if employer_year_tax > option_sum_of_tax:
+                print(f'За {employer["first_name"]} {employer["last_name"]} компания платит больше '
+                        f'{option_sum_of_tax//1000} тысяч налогов в год')
+
+
+# task 18. Вывести имя и фамилию сотрудника, за которого компания платит меньше всего налогов.
+def get_employer_with_max_tax(departments):
+    tax_of_departments = get_departments_tax_rate(taxes, departments)
+    employers_taxes_list = []
+    for department in departments:
+        for employer in department['employers']:
+            employers_taxes = {}
+            employer_year_tax = employer['salary_rub'] * 12 * tax_of_departments[department["title"]]
+            employers_taxes["first_name"] = employer["first_name"]
+            employers_taxes["last_name"] = employer["last_name"]
+            employers_taxes["year_tax"] = employer_year_tax
+            employers_taxes_list.append(employers_taxes)
+
+    sorted_list_of_employers_tax = sorted(employers_taxes_list, key=lambda x: x["year_tax"], reverse=True)
+
+    return sorted_list_of_employers_tax[0]["first_name"], sorted_list_of_employers_tax[0]["last_name"]
+
+
 if __name__ == "__main__":
     salaries_of_departments = generating_departments_salaries(departments)
     tax_of_departments = get_departments_tax_rate(taxes, departments)
     print(calculate_department_tax_burden(salaries_of_departments, tax_of_departments))  # 13
     print(calculate_employers_salaries(departments))  # 14
-
-
-# task 16. Вывести список отделов, отсортированный по месячной налоговой нагрузке.
-
-# task 17. Вывести всех сотрудников, за которых компания платит больше 100к налогов в год.
-
-# task 18. Вывести имя и фамилию сотрудника, за которого компания платит меньше всего налогов.
+    print(output_departments_name_by_total_taxes(salaries_of_departments, tax_of_departments))  # 16
+    print(output_employers_over_option_tax(departments, 100000))  # 17
+    print(* get_employer_with_max_tax(departments))  # 18
