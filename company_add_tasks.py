@@ -109,9 +109,12 @@ def output_departments_name_by_total_taxes(departments_salary, department_taxes)
         tax_burden = departments_salary.get(department) * department_taxes.get(department)
         departments_total_taxes[department] = tax_burden
 
-    sorted_departments_total_taxes = dict(sorted(departments_total_taxes.items(), key=lambda item: item[1],
-                                                 reverse=True))
-    departments_names_by_total_taxes = [department_name for department_name in sorted_departments_total_taxes]
+    departments_names_by_total_taxes = list(sorted(
+        departments_total_taxes,
+        key=departments_total_taxes.get,
+        reverse=True,
+    ))
+
     for department_name in departments_names_by_total_taxes:
         print(department_name)
 
@@ -124,7 +127,7 @@ def output_employers_over_option_tax(departments, option_sum_of_tax):
             employer_year_tax = employer['salary_rub'] * 12 * tax_of_departments[department["title"]]
             if employer_year_tax > option_sum_of_tax:
                 print(f'За {employer["first_name"]} {employer["last_name"]} компания платит больше '
-                        f'{option_sum_of_tax//1000} тысяч налогов в год')
+                        f'{option_sum_of_tax // 1000} тысяч налогов в год')
 
 
 # task 18. Вывести имя и фамилию сотрудника, за которого компания платит меньше всего налогов.
@@ -135,14 +138,16 @@ def get_employer_with_max_tax(departments):
         for employer in department['employers']:
             employers_taxes = {}
             employer_year_tax = employer['salary_rub'] * 12 * tax_of_departments[department["title"]]
-            employers_taxes["first_name"] = employer["first_name"]
-            employers_taxes["last_name"] = employer["last_name"]
-            employers_taxes["year_tax"] = employer_year_tax
+            employers_taxes = {
+                "first_name": employer["first_name"],
+                "last_name": employer["last_name"],
+                "year_tax": employer_year_tax,
+            }
             employers_taxes_list.append(employers_taxes)
 
-    sorted_list_of_employers_tax = sorted(employers_taxes_list, key=lambda x: x["year_tax"], reverse=True)
+    employer_with_max_tax = max(employers_taxes_list, key=lambda x: x["year_tax"])
 
-    return sorted_list_of_employers_tax[0]["first_name"], sorted_list_of_employers_tax[0]["last_name"]
+    return employer_with_max_tax.get("first_name"), employer_with_max_tax.get("last_name")
 
 
 if __name__ == "__main__":
