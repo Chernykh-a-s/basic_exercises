@@ -58,27 +58,30 @@ def generate_chat_history():
 
 # 1. Вывести айди пользователя, который написал больше всех сообщений.
 def is_user_with_max_messages(messages):
-    id_list = []
+    #  1. Generate a list of unique id of users who have sent messages
+    user_id_list_who_sent_messages = []
     for message in messages:
-        id_list.append(message["sent_by"])
-    uniq_id_list = list(set(id_list))
+        user_id_list_who_sent_messages.append(message["sent_by"])
+    unique_user_id_list_who_sent_messages = list(set(user_id_list_who_sent_messages))
 
-    count_of_message_id = {}
-    for id_uniq in uniq_id_list:
-        counter = 0
-        for id in id_list:
-            if id_uniq == id:
-                counter += 1
-        count_of_message_id[id_uniq] = counter
+    #  2. Generate a list of dictionaries with user id and sum of messages sent by them
+    user_id_sum_of_messages = []
+    for user_id in unique_user_id_list_who_sent_messages:
+        user_id_sum_of_messages.append({
+        "user_id": user_id_list_who_sent_messages.count(user_id),
+        })
 
-    count_of_message_id_sorted = dict(sorted(count_of_message_id.items(), key=lambda item: item[1], reverse=True))
-    count_of_message_id_sorted_list = [id for id in count_of_message_id_sorted]
-    return count_of_message_id_sorted_list[0]
+    #  3. Put in a variable the user with the maximum number of messages sent
+    user_with_max_messages = max(user_id_sum_of_messages, key=lambda x: x["user_id"])
+
+    return user_with_max_messages
+
+
+# 2. Вывести айди пользователя, на сообщения которого больше всего отвечали.
+def is_user_with_max_reply_messages(messages):
+     pass
 
 
 if __name__ == "__main__":
     messages = generate_chat_history()
-    print(is_user_with_max_messages(messages))
-
-
-
+    print(is_user_with_max_messages(messages)['user_id'])
