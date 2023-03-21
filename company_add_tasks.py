@@ -109,11 +109,11 @@ def output_departments_name_by_total_taxes(departments_salary, department_taxes)
         tax_burden = departments_salary.get(department) * department_taxes.get(department)
         departments_total_taxes[department] = tax_burden
 
-    departments_names_by_total_taxes = list(sorted(
+    departments_names_by_total_taxes = sorted(
         departments_total_taxes,
         key=departments_total_taxes.get,
         reverse=True,
-    ))
+    )
 
     for department_name in departments_names_by_total_taxes:
         print(department_name)
@@ -147,7 +147,7 @@ def get_employer_with_max_tax(departments):
 
     employer_with_max_tax = max(employers_taxes_list, key=lambda x: x["year_tax"])
 
-    return employer_with_max_tax.get("first_name"), employer_with_max_tax.get("last_name")
+    return employer_with_max_tax["first_name"], employer_with_max_tax["last_name"]
 
 
 if __name__ == "__main__":

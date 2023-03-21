@@ -55,7 +55,6 @@ def generate_chat_history():
         })
     return messages
 
-
 # 1. Вывести айди пользователя, который написал больше всех сообщений.
 def is_user_with_max_messages(messages):
     #  1. Generate a list of unique id of users who have sent messages
@@ -64,17 +63,25 @@ def is_user_with_max_messages(messages):
         user_id_list_who_sent_messages.append(message["sent_by"])
     unique_user_id_list_who_sent_messages = list(set(user_id_list_who_sent_messages))
 
-    #  2. Generate a list of dictionaries with user id and sum of messages sent by them
+    #  2. Generate a list of dictionaries with users id and sum of messages sent by them
     user_id_sum_of_messages = []
     for user_id in unique_user_id_list_who_sent_messages:
         user_id_sum_of_messages.append({
-        "user_id": user_id_list_who_sent_messages.count(user_id),
+            "user_id": user_id,
+            "sum_of_messages_sent_by": user_id_list_who_sent_messages.count(user_id),
         })
 
-    #  3. Put in a variable the user with the maximum number of messages sent
-    user_with_max_messages = max(user_id_sum_of_messages, key=lambda x: x["user_id"])
+    #  3. Find the maximum number of messages sent
+    max_sum_of_messages_sent_by = max(user_id_sum_of_messages, key=lambda x: x['sum_of_messages_sent_by'])[
+        'sum_of_messages_sent_by']
 
-    return user_with_max_messages
+    #  4. Making a list of the users id with the maximum number of messages
+    users_id_with_max_messages = []
+    for user_id in user_id_sum_of_messages:
+        if user_id['sum_of_messages_sent_by'] == max_sum_of_messages_sent_by:
+            users_id_with_max_messages.append(user_id['user_id'])
+
+    return users_id_with_max_messages
 
 
 # 2. Вывести айди пользователя, на сообщения которого больше всего отвечали.
@@ -84,4 +91,4 @@ def is_user_with_max_reply_messages(messages):
 
 if __name__ == "__main__":
     messages = generate_chat_history()
-    print(is_user_with_max_messages(messages)['user_id'])
+    print(is_user_with_max_messages(messages))
