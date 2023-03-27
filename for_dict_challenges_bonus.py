@@ -86,9 +86,43 @@ def is_user_with_max_messages(messages):
 
 # 2. Вывести айди пользователя, на сообщения которого больше всего отвечали.
 def is_user_with_max_reply_messages(messages):
-     pass
+     #  1. Формируем список id сообщений на которые отвечали -> уникальные
+     messages_id_that_were_replied = []
+     for message in messages:
+         if message["reply_for"] != [] and message["reply_for"] is not None:
+            messages_id_that_were_replied.append(message["reply_for"])
 
+     unique_messages_id_that_were_replied = set(messages_id_that_were_replied)
+
+     #  2. Формируем список словарей: id сообщения, кол-во сообщений-ответов на это сообщение
+     messages_id_that_were_replied_with_sum_of_answers = []
+     for message_id in unique_messages_id_that_were_replied:
+         messages_id_that_were_replied_with_sum_of_answers.append({
+             "message_id": message_id,
+             "number_of_answers": messages_id_that_were_replied.count(message_id),
+         })
+     print(messages_id_that_were_replied_with_sum_of_answers)
+
+     #  3. Выводим id сообщения с максимальным количеством ответов на него
+     message_id_with_max_sum_of_answers = max(messages_id_that_were_replied_with_sum_of_answers, key=lambda x: x[
+         "number_of_answers"])
+     print(f'айди сообщения sum = {message_id_with_max_sum_of_answers}')
+
+     #  4. Кладем в пременную id сообщения с максимальным количеством ответов на него
+     message_id_with_max_sum_of_answers_var = message_id_with_max_sum_of_answers['message_id']
+     print(f'айди сообщения = {message_id_with_max_sum_of_answers_var}')
+
+     #  5. Формируем словарь из id сообщений и id пользователей-отправителей этих сообщений
+     messages_id_and_users_id_sent_by = {}
+     for message in messages:
+        messages_id_and_users_id_sent_by[message["id"]] = message["sent_by"]
+     print(f'Словарь = {messages_id_and_users_id_sent_by}')
+
+     #  6. Выводим id пользователя на сообщения которого больше всего отвечали
+
+     return messages_id_and_users_id_sent_by[message_id_with_max_sum_of_answers_var]
 
 if __name__ == "__main__":
     messages = generate_chat_history()
     print(is_user_with_max_messages(messages))
+    print(is_user_with_max_reply_messages(messages))
